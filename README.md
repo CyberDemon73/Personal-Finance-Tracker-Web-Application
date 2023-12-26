@@ -217,7 +217,7 @@ We would like to express our gratitude to the following individuals and organiza
 
 - Our team members: Abdelrhman Hatem, Mohamed Hisham, Sharook Khaled for their dedication and hard work in developing the Financial Management System.
 
-- TELDA inc. for their valuable insights and feedback during the development process.
+- TLDA inc. for their valuable insights and feedback during the development process.
 
 - The open-source community for their continuous support and contributions to the project.
 
