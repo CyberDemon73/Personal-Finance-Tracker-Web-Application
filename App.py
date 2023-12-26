@@ -82,6 +82,15 @@ class Balance(db.Model):
     amount = db.Column(db.Float, nullable=False, default=0.0)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('error.html', error='Page not found'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('error.html', error='Internal server error'), 500
+    
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -117,19 +126,23 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        email = request.form.get('email')
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-        new_user = User(username=username, password_hash=hashed_password, email=email)
-        initial_balance = Balance(user_id=new_user.id, amount=0.0)
-        db.session.add(new_user)
-        db.session.commit()
+    try:
+        if request.method == 'POST':
+            username = request.form.get('username')
+            password = request.form.get('password')
+            email = request.form.get('email')
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+            new_user = User(username=username, password_hash=hashed_password, email=email)
+            initial_balance = Balance(user_id=new_user.id, amount=0.0)
+            db.session.add(new_user)
+            db.session.commit()
 
-        return redirect(url_for('login')) 
+            return redirect(url_for('login')) 
 
-    return render_template('signup.html')
+        return render_template('signup.html')
+    except Exception as e:
+        db.session.rollback()
+        return render_template('error.html', error=f'Error during signup: {e}'), 500
 
 @app.route('/dashboard')
 def dashboard():
