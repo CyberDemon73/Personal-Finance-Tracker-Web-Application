@@ -215,13 +215,11 @@ The Financial Management System (FMS) is licensed under the [MIT License](https:
 
 We would like to express our gratitude to the following individuals and organizations for their support, contributions, and inspiration:
 
-- Our team members: Abdelrhman Hatem, Mohamed Hisham, Sharook Khaled, and [Your Name] for their dedication and hard work in developing the Financial Management System.
+- Our team members: Abdelrhman Hatem, Mohamed Hisham, Sharook Khaled for their dedication and hard work in developing the Financial Management System.
 
-- [Name of Organization/Company] for their valuable insights and feedback during the development process.
+- TELDA inc. for their valuable insights and feedback during the development process.
 
 - The open-source community for their continuous support and contributions to the project.
-
-- [Mention any specific individuals or organizations you'd like to thank.]
 
 We appreciate the collaborative spirit and the community's efforts in making the Financial Management System a success.
 
