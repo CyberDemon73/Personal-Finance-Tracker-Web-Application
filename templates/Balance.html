@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Balance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Add Balance</h1>
+                        <form id="balance-form" action="{{ url_for('add_balance') }}" method="post" class="mt-4">
+                            <div class="form-group">
+                                <label for="amount">Amount:</label>
+                                <input type="number" step="0.01" id="amount" name="amount" class="form-control" required>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Add Balance</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#balance-form').on('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                var amount = $('#amount').val(); // Get the amount from the form
+
+                // Send AJAX request to the server
+                $.ajax({
+                    url: '/add_balance', // The URL to your add_balance route
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ amount: amount }),
+                    success: function(response) {
+                        // Handle success - you can redirect or update the page
+                        alert('Balance added successfully!');
+                    },
+                    error: function(response) {
+                        // Handle error
+                        alert('Error adding balance');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

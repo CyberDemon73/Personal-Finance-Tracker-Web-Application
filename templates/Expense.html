@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Add Expense Record</h2>
+            </div>
+            <div class="card-body">
+                <form id="expense-form">
+                    <div class="form-group">
+                        <label for="expense_amount">Amount:</label>
+                        <input type="number" id="expense_amount" class="form-control" placeholder="Amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <input type="text" id="category" class="form-control" placeholder="Category">
+                    </div>
+                    <div class="form-group">
+                        <label for="expense_date">Date:</label>
+                        <input type="date" id="expense_date" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Add Expense</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const expenseForm = document.getElementById("expense-form");
+
+            expenseForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                //const userId = document.getElementById("expense_user_id").value;
+                const amount = document.getElementById("expense_amount").value;
+                const category = document.getElementById("category").value;
+                const date = document.getElementById("expense_date").value;
+
+                const data = {
+                    //user_id: userId,
+                    amount: amount,
+                    category: category,
+                    date: date,
+                };
+
+                fetch("/expenses", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    alert("Expense added successfully");
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert("Error adding expense");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
